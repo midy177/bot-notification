@@ -14,13 +14,13 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-musl
-            artifact: wechat-notification-linux-x86_64
+            artifact: bot-notification-linux-x86_64
           - os: macos-latest
             target: x86_64-apple-darwin
-            artifact: wechat-notification-macos-x86_64
+            artifact: bot-notification-macos-x86_64
           - os: macos-latest
             target: aarch64-apple-darwin
-            artifact: wechat-notification-macos-aarch64
+            artifact: bot-notification-macos-aarch64
 
     steps:
       - uses: actions/checkout@v4
@@ -38,7 +38,7 @@ jobs:
         run: cargo build --release --target ${{ matrix.target }}
 
       - name: Rename binary
-        run: cp target/${{ matrix.target }}/release/wechat-notification ${{ matrix.artifact }}
+        run: cp target/${{ matrix.target }}/release/bot-notification ${{ matrix.artifact }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -60,4 +60,4 @@ jobs:
       - name: Create release and upload assets
         uses: softprops/action-gh-release@v2
         with:
-          files: wechat-notification-*
+          files: bot-notification-*
